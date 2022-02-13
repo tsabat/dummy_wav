@@ -78,13 +78,13 @@ def write_beep(file_name: Path, duration_milliseconds=1000):
     append_sinewave(audio, duration_milliseconds=duration_milliseconds)
     save_wav(audio, file_name=file_name)
 
-
-with open("example.csv") as csvfile:
-    reader = csv.reader(
-        csvfile,
-    )
-    for row in reader:
-        file_name = row[0]
-        duration_ms = int(float(row[1]) * 1000)
-        print(f"writing {duration_ms}ms to {file_name}")
-        write_beep(file_name=file_name, duration_milliseconds=duration_ms)
+if __name__=="__main__":
+    with open("example.csv") as csvfile:
+        reader = csv.reader(
+            csvfile,
+        )
+        for row in reader:
+            file_name = row[0]
+            duration_ms = int(float(row[1]) * 1000)
+            print(f"writing {duration_ms}ms to {file_name}")
+            write_beep(file_name=file_name, duration_milliseconds=duration_ms)
