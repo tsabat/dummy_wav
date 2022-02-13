@@ -87,14 +87,24 @@ def write_beep(file_name: Path, duration_milliseconds=1000):
     default="example.csv",
     help="Type the file name of the csv file, please",
 )
-def run(csv_name):
+@click.option(
+    "--file_name_row",
+    default=0,
+    help="Write the row number with the file names",
+)
+@click.option(
+    "--file_length_row",
+    default=1,
+    help="Write the row number with the file lengths",
+)
+def run(csv_name, file_name_row, file_length_row):
     with open(csv_name) as csvfile:
         reader = csv.reader(
             csvfile,
         )
         for row in reader:
-            file_name = row[0]
-            duration_ms = int(float(row[1]) * 1000)
+            file_name = row[file_name_row]
+            duration_ms = int(float(row[file_length_row]) * 1000)
             print(f"writing {duration_ms} ms to {file_name}")
             write_beep(file_name=file_name, duration_milliseconds=duration_ms)
 
