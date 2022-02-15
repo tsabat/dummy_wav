@@ -8,6 +8,7 @@ from pathlib import Path
 
 from scipy.io import wavfile
 
+
 def write_beep(file_name: Path, duration=5.0):
     f = 440  # sine frequency, Hz, may be float
     fs = 22050
@@ -22,23 +23,23 @@ def write_beep(file_name: Path, duration=5.0):
     help="Type the file name of the csv file, please",
 )
 @click.option(
-    "--file_name_row",
+    "--file-name-column",
     default=0,
-    help="Write the row number with the file names",
+    help="Write the column number with the file names",
 )
 @click.option(
-    "--file_length_row",
+    "--file-length-column",
     default=1,
-    help="Write the row number with the file lengths",
+    help="Write the column number with the file lengths",
 )
-def run(csv_name, file_name_row, file_length_row):
+def run(csv_name, file_name_column, file_length_column):
     with open(csv_name) as csvfile:
         reader = csv.reader(
             csvfile,
         )
         for row in reader:
-            file_name = row[file_name_row]
-            duration = float(row[file_length_row])
+            file_name = row[file_name_column].strip()
+            duration = float(row[file_length_column])
             print(f"writing {duration} s to {file_name}")
             write_beep(file_name=file_name, duration=duration)
 
