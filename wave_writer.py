@@ -33,11 +33,28 @@ def write_beep(file_name: Path, duration=5.0):
     help="Write the column number with the file lengths",
 )
 def run(csv_name, file_name_column, file_length_column):
+    row_number=0
+    is_valid=True
+    rows=[]
     with open(csv_name) as csvfile:
         reader = csv.reader(
             csvfile,
         )
         for row in reader:
+            row_number+=1
+            if type(row[file_name_column]) != str:
+                print(f'Row number {row_number} has a wrong type. File name column contains {row[file_name_column]}.')
+                is_valid = False
+                break
+            try:
+                float(row[file_length_column])
+                rows.append(row)
+            except:
+                print(f'Row number {row_number} has a wrong type. Length column contains {row[file_length_column]}.')
+                is_valid = False
+                break  
+    if is_valid == True:
+        for row in rows:
             file_name = row[file_name_column].strip()
             duration = float(row[file_length_column])
             print(f"writing {duration} s to {file_name}")
