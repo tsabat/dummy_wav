@@ -18,7 +18,14 @@ def parse_validate_and_clean(csv_name, file_name_column, file_length_column, deb
         seen_file_names = set()
         for row in reader:
             row_number+=1
-
+            if not file_name_column in row:
+                print(f"A column named {file_name_column} does not exist. Please enter a different column name and try again")
+                is_valid = False
+                break
+            if not file_length_column in row:
+                print(f"A column named {file_length_column} does not exist. Please enter a different column name and try again")
+                is_valid = False
+                break
             clean_file_name = row[file_name_column].strip()
             if not clean_file_name.endswith(WAV_EXTENSION):
                 if debug:
