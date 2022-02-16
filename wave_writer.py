@@ -3,10 +3,11 @@ import click
 import csv
 import numpy as np
 
-# sfrom numpy import array
 from pathlib import Path
 
 from scipy.io import wavfile
+
+WAV_EXTENSION = ".wav"
 
 
 def write_beep(file_name: Path, duration=5.0):
@@ -54,6 +55,10 @@ def run(csv_name, file_name_column, file_length_column, debug):
             row_number+=1
 
             clean_file_name = row[file_name_column].strip()
+            if not clean_file_name.endswith(WAV_EXTENSION):
+                if debug:
+                    print(f"Adding {WAV_EXTENSION} to {clean_file_name}")
+                clean_file_name = f"{clean_file_name}{WAV_EXTENSION}"
             if clean_file_name in seen_file_names:
                 print(f'Row number {row_number} has a duplicate filename, {clean_file_name}. Please rename and try again')
                 is_valid = False
