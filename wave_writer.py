@@ -42,16 +42,23 @@ def run(csv_name, file_name_column, file_length_column):
             csvfile,
         )
         row_number=0
+        seen_file_names = set()
         for row in reader:
             row_number+=1
 
-            row[file_name_column] = row[file_name_column].strip()
+            clean_file_name = row[file_name_column].strip()
+            if clean_file_name in seen_file_names:
+                print(f'Row number {row_number} has a duplicate filename, {clean_file_name}. Please rename and try again')
+                is_valid = False
+                break
+            seen_file_names.add(clean_file_name)
+            row[file_name_column] = clean_file_name
 
             try:
                 row[file_length_column] = float(row[file_length_column])
                 rows.append(row)
             except:
-                print(f'Row number {row_number} has an invalid value. Duration column contains {row[file_length_column]}.')
+                print(f'Row number {row_number} has an invalid value. Duration column contains {row[file_length_column]}. Please enter a number and try again')
                 is_valid = False
                 break
 
