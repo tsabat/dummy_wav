@@ -1,13 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ex
 
-# instsalls wave_writer
-pyinstaller wave_writer.py
-
-# moves the example to the dir to test it
-cp example.csv dist/wave_writer
-
-# run with example file
-cd dist/wave_writer
-./wave_writer
-echo "removing test files"
-rm -rf *.wav
+# installs wave_writer
+pyinstaller --paths ~/.pyenv/versions/seconds/lib/python3.10/site-packages wave_writer.py
