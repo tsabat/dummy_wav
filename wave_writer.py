@@ -32,7 +32,14 @@ def write_beep(file_name: Path, duration=5.0):
     default="Duration",
     help="The name of the column that stores the expected duration of the file",
 )
-def run(csv_name, file_name_column, file_length_column):
+@click.option(
+    "-d",
+    "--debug",
+    default=False, 
+    is_flag=True,
+    help="Whether or not to show debug output",
+)
+def run(csv_name, file_name_column, file_length_column, debug):
     is_valid=True
     rows=[]
 
@@ -67,7 +74,8 @@ def run(csv_name, file_name_column, file_length_column):
         for row in rows:
             file_name = row[file_name_column]
             duration = row[file_length_column]
-            print(f"writing {duration} s to {file_name}")
+            if debug:
+                print(f"Creating {file_name} with {duration} second duration")
             write_beep(file_name=file_name, duration=duration)
 
 
