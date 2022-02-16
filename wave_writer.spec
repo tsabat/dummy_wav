@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['wave_writer.py'],
-             pathex=[],
+             pathex=['/Users/daraneznaeva/.pyenv/versions/seconds/lib/python3.10/site-packages'],
              binaries=[],
              datas=[],
              hiddenimports=[],
