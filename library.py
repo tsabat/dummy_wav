@@ -1,5 +1,6 @@
 import csv
 import numpy as np
+import soundfile
 
 from pathlib import Path
 
@@ -56,3 +57,6 @@ def write_beep(file_name: Path, duration=5.0):
     fs = 22050
     samples = (np.sin(2 * np.pi * np.arange(fs * duration) * f / fs)).astype(np.float32)
     wavfile.write(file_name, 22050, samples)
+
+    data, samplerate = soundfile.read(file_name)
+    soundfile.write(file_name, data, samplerate, subtype='PCM_24')
