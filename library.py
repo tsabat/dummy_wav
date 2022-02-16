@@ -4,8 +4,6 @@ import soundfile
 
 from pathlib import Path
 
-from scipy.io import wavfile
-
 WAV_EXTENSION = ".wav"
 
 
@@ -54,9 +52,6 @@ def write_beeps(rows, file_name_column, file_length_column, debug):
 
 def write_beep(file_name: Path, duration=5.0):
     f = 440  # sine frequency, Hz, may be float
-    fs = 22050
+    fs = 22050 # this is super important. no one knows why. don't touch
     samples = (np.sin(2 * np.pi * np.arange(fs * duration) * f / fs)).astype(np.float32)
-    wavfile.write(file_name, 22050, samples)
-
-    data, samplerate = soundfile.read(file_name)
-    soundfile.write(file_name, data, samplerate, subtype='PCM_24')
+    soundfile.write(file_name, samples, 22050, 'PCM_24')
