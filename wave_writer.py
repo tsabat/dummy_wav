@@ -51,7 +51,7 @@ def run(csv_name, file_name_column, file_length_column):
                 row[file_length_column] = float(row[file_length_column])
                 rows.append(row)
             except:
-                print(f'Row number {row_number} has a wrong type. Length column contains {row[file_length_column]}.')
+                print(f'Row number {row_number} has an invalid value. Duration column contains {row[file_length_column]}.')
                 is_valid = False
                 break
 
