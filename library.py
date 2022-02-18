@@ -61,5 +61,5 @@ def write_beeps(rows, file_name_column, file_length_column, debug):
 def write_beep(file_name: Path, duration=5.0):
     f = 440  # sine frequency, Hz, may be float
     fs = 22050
-    samples = (np.sin(2 * np.pi * np.arange(fs * duration) * f / fs)).astype(np.float32)
+    samples = (np.sin(2 * np.pi * np.arange(fs * duration) * f / fs)).astype(np.uint8)
     wavfile.write(file_name, 22050, samples)
